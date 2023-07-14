@@ -30,3 +30,8 @@
 4. 再度VSCodeウインドウの左下 >< をクリック
 5. コマンドパレットから「実行中のコンテナーにアタッチ」を選択
 6. コマンドパレットから「/kaiyoken-nagashima」を選択
+
+### 初回ログイン時はVSCode拡張機能をコンテナへインストール
+- Japanese Language Pack for Visual Studio Code
+- Python
+- Jupyter
