@@ -36,3 +36,7 @@
 - Japanese Language Pack for Visual Studio Code
 - Python
 - Jupyter
+
+### 注意事項
+- jupyter notebook内でファイルの読み書きはフルパスで指定しなければならない
+    - 相対パスは使えない
