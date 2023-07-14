@@ -21,6 +21,7 @@
     ```
     kaiyoken-nagashimaはコンテナ名。適宜変更してください
     /KaiYoKenはDocker側の作業ディレクトリ名。適宜変更してください
+    - 参考: [dockerでvolumeをマウントしたときのファイルのowner問題](https://qiita.com/yohm/items/047b2e68d008ebb0f001)
 
 ## 2. ローカルのVSCodeから接続し開発・実行
 
