@@ -1,42 +1,50 @@
 # NVIDIA DGX-STATIONでのDockerの作り方
 
-2023-07-14現在
+2023-08-22現在
 
 ## 目標
 
-1. DockerでPython環境を構築
-2. ローカルのVSCodeから接続し開発・実行
+1. ローカルPCのVSCodeからDGX上のDockerに接続して開発したり実行したりする
+2. DGX上の開発コンテナからGitLabにプッシュする
 
-## 1. DockerでPython環境を構築
+## 1. DGXからGitLabへのssh接続環境構築
 
-1. DGXにこのリポジトリをクローンするか、Dockerfile, requirements.txtを作成
-2. Dockerイメージを作成
+1. ローカルのWindowsでPowerShellを管理者で起動
+2. ssh-agentを起動
     ```
-    $ docker image build -t kaiyoken .
+    PS > Set-Service ssh-agent -StartupType Automatic
+    PS > Start-Service ssh-agent
+    # 起動できているかの確認
+    PS > Get-Service ssh-agent
     ```
-    上のkaiyokenはイメージ名。適宜変更してください。誰かが既にイメージを作っていたらそれを利用してもいい
-3. Dockerを起動
+3. GitLabの秘密鍵の登録
     ```
-    $ docker run --name kaiyoken-nagashima -it -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro -v .:/KaiYoKen -u $(id -u $USER):$(id -g $USER) kaiyoken bash
+    PS > ssh-add C:\Users\ユーザー名\.ssh\秘密鍵
+    # 登録できているかの確認
+    PS > ssh-add -l
     ```
-    kaiyoken-nagashimaはコンテナ名。適宜変更してください
-    /KaiYoKenはDocker側の作業ディレクトリ名。適宜変更してください
-    - 参考: [dockerでvolumeをマウントしたときのファイルのowner問題](https://qiita.com/yohm/items/047b2e68d008ebb0f001)
 
-## 2. ローカルのVSCodeから接続し開発・実行
+## 2. VSCodeからDGXへ接続
 
-1. ローカルPCのVSCodeから左下 >< をクリック
-2. コマンドパレットから「現在のウインドウをホストに接続する」を選択
-3. コマンドパレットから「dgx」を選択
-4. 再度VSCodeウインドウの左下 >< をクリック
-5. コマンドパレットから「実行中のコンテナーにアタッチ」を選択
-6. コマンドパレットから「/kaiyoken-nagashima」を選択
+1. VSCodeで新しいウインドウを開く
+2. VSCodeの拡張機能Dev Containersをインストール
+3. VSCodeウインドウ左下 >< をクリック
+4. コマンドパレットから「現在のウインドウをホストに接続する」を選択
+5. コマンドパレットから「dgx」を選択
 
-### 初回ログイン時はVSCode拡張機能をコンテナへインストール
-- Japanese Language Pack for Visual Studio Code
-- Python
-- Jupyter
+## 3. DGXにGitLabからプロジェクトをクローン
 
-### 注意事項
-- jupyter notebook内でファイルの読み書きはフルパスで指定しなければならない
-    - 相対パスは使えない
+
+## 4. DGX上のDocker起動
+
+1. dgxにssh接続しているVSCodeウインドウでターミナルを開き、GitLabからクローン
+    ```
+    $ git clone git@repo.neut3d.com:hot_docs/docker_on_dgx.git
+    :
+    ```
+2. VSCodeウインドウのフォルダを開くからdocker_on_dgxを開く
+3. ctrl + shift + p でコマンドパレットを開き、下記を選択
+    ```
+    >Dev Containers: Rebuild and Reopen in Containner
+    ```
+    dockerコンテナがビルドされる（数分かかることも）

@@ -13,8 +13,5 @@ RUN apt-get update \
     libsuitesparse-dev \
     libnauty2-dev \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install -r requirements.txt
+    && rm -rf /var/lib/apt/lists/* \
+    && pip3 install --upgrade setuptools wheel pip
