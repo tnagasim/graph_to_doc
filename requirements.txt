@@ -5,6 +5,6 @@ pandas
 plotly
 pytest
 scikit-learn
-torch
-torchvision
-torchaudio
+# torch
+# torchvision
+# torchaudio
