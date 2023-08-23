@@ -15,3 +15,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && pip3 install --upgrade setuptools wheel pip
+ARG USERNAME=devcon
+ARG USER_UID=1005
+ARG USER_GID=100
+
+RUN useradd -m -s /bin/bash -u ${USER_UID} -g ${USER_GID} ${USERNAME}
+USER ${USERNAME}
