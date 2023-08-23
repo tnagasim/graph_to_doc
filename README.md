@@ -34,17 +34,42 @@
 
 ## 3. DGXにGitLabからプロジェクトをクローン
 
-
-## 4. DGX上のDocker起動
-
 1. dgxにssh接続しているVSCodeウインドウでターミナルを開き、GitLabからクローン
     ```
     $ git clone git@repo.neut3d.com:hot_docs/docker_on_dgx.git
     :
     ```
 2. VSCodeウインドウのフォルダを開くからdocker_on_dgxを開く
-3. ctrl + shift + p でコマンドパレットを開き、下記を選択
+3. ユーザーIDの書き換え
+    1. ターミナルからdgxのIDの確認
+    ```
+    $ id
+    uid=1005(nagashima) gid=100(users) groups=100(users),27(sudo),999(docker)
+    ```
+    2. docker_on_dgx/.devcontainer/Dockerfile を開き、USER_UIDを上のuidに書き換える
+    ```
+    :
+    ARG USER_UID=1005
+    :
+    ```
+
+## 4. DGX上のDocker起動
+
+1. ctrl + shift + p でコマンドパレットを開き、下記を選択
     ```
     >Dev Containers: Rebuild and Reopen in Containner
     ```
     dockerコンテナがビルドされる（数分かかることも）
+2. gitの設定
+    1. ターミナルを開き、gitのユーザー名、アドレスを設定
+    ```
+    $ git config --global user.name Nagashima
+    $ git config --global user.email nagashima.takehiro@neut.co.jp
+    ```
+    2. ~/.ssh/configに以下を追加
+    ```
+    Host repo.neut3d.com
+        HostName repo.neut3d.com
+        Port 9022
+        User git
+    ```
