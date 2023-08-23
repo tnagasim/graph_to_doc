@@ -23,6 +23,7 @@
     # 登録できているかの確認
     PS > ssh-add -l
     ```
+- 参考: [Windows上でVSCode remote containersを使っている場合にコンテナ内からsshでGitHubに接続する方法](https://qiita.com/SolKul/items/3103fdde94c09b044a3a)
 
 ## 2. VSCodeからDGXへ接続
 
