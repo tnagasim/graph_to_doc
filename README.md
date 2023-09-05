@@ -41,18 +41,6 @@
     :
     ```
 2. VSCodeウインドウのフォルダを開くからdocker_on_dgxを開く
-3. ユーザーIDの書き換え
-    1. ターミナルからdgxのIDの確認
-    ```
-    $ id
-    uid=1005(nagashima) gid=100(users) groups=100(users),27(sudo),999(docker)
-    ```
-    2. docker_on_dgx/.devcontainer/Dockerfile を開き、USER_UIDを上のuidに書き換える
-    ```
-    :
-    ARG USER_UID=1005
-    :
-    ```
 
 ## 4. DGX上のDocker起動
 
